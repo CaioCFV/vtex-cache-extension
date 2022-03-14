@@ -1,6 +1,5 @@
 ;
 (function() {
-    const random = Math.floor(Math.random() * 100000);
     let cache_javascript = false;
     let cache_css = false;
     let cache_imagens = false;
@@ -26,27 +25,23 @@
         }
     });
     const CALLBACK = function(details) {
-
+        const random = Math.floor(Math.random() * 100000);
         const url = details.url;
         const isFile = url.indexOf('/arquivos') > 10;
         const alreadyChanged = url.indexOf('xv') > 10;
         const isJs = url.indexOf('.js') > 10;
         const isCss = url.indexOf('.css') > 10;
         const isImage = url.indexOf('.jpg') > 10 || url.indexOf('.svg') > 10 || url.indexOf('.png') > 10;
-        const hasWid = url.indexOf('wid') > 1;
-        console.log({
-            url: url,
-            wid: !hasWid
-        });
-        // if (lid.length && url.indexOf('universoenfim.com.br') > 5 && hasWid) {
-        //     console.log(url, 'vapo')
-        //     return { redirectUrl: url + "?wid=" + lid }
-        // }
+        //const hasWid = url.indexOf('wid') > 1;
         if (isFile && cache_javascript && isJs && !alreadyChanged) {
-            return { redirectUrl: url.split('?')[0] + "?v=" + random + "xv" }
+            return {
+                redirectUrl: url.split('?')[0] + "?v=xxv" + random + "xv",
+            }
         }
         if (isFile && cache_css && isCss && !alreadyChanged) {
-            return { redirectUrl: url.split('?')[0] + "?v=" + random + "xv" }
+            return {
+                redirectUrl: url.split('?')[0] + "?v=" + random + "xv"
+            }
         }
         if (isFile && cache_imagens && isImage && !alreadyChanged) {
             return { redirectUrl: url.split('?')[0] + "?v=" + random + "xv" }
