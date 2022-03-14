@@ -1,0 +1,28 @@
+{
+    "name": "VTEX 0 CACHE",
+    "version": "1.1",
+    "description": "Reduz o cache da vtex drasticamente - by Caio F. Vieira",
+    "manifest_version": 2,
+    "permissions": [
+        "webRequest",
+        "webRequestBlocking",
+        "storage",
+        "activeTab",
+        "<all_urls>"
+    ],
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "/images/caio.png",
+            "32": "/images/caio.png",
+            "48": "/images/caio.png",
+            "128": "/images/caio.png"
+        }
+    },
+    "icons": {
+        "16": "/images/caio.png",
+        "32": "/images/caio.png",
+        "48": "/images/caio.png",
+        "128": "/images/caio.png"
+    }
+}

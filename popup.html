@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="extension">
+        <h1 class="title">VTEX CACHE</h1>
+    </div>
+    <form class="form">
+        <fieldset>
+            <label for="cache_javascript">Limpar cache de arquivos javascript</label>
+            <input type="checkbox" name="cache_javascript" value="false" id="cache_javascript" />
+        </fieldset>
+        <fieldset>
+            <label for="cache_css">Limpar cache de arquivos css</label>
+            <input type="checkbox" name="cache_css" value="false" id="cache_css" />
+        </fieldset>
+        <fieldset>
+            <label for="cache_imagens">Limpar cache de imagens</label>
+            <input type="checkbox" name="cache_imagens" value="false" id="cache_imagens" />
+        </fieldset>
+        <fieldset style="display: none;">
+            <label for="lid">CONFIGURAR LID GLOBAL</label>
+            <input type="text" name="lid" id="lid" />
+        </fieldset>
+    </form>
+    <script src="popup.js"></script>
+    <script src="background.js"></script>
+</body>
+
+</html>
