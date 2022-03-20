@@ -1,53 +1,139 @@
-;
-(function() {
-    let cache_javascript = false;
-    let cache_css = false;
-    let cache_imagens = false;
-    let lid = false;
+let AVAILABLE_TO_RUN_JS = true;
+let AVAILABLE_TO_RUN_CSS = true;
+let AVAILABLE_TO_RUN_IMAGENS = true;
+let cache_javascript = false;
+let cache_css = false;
+let cache_imagens = false;
+
+//RULES
+const RULE_JAVASCRIPT = function() {
+    if (AVAILABLE_TO_RUN_JS) {
+        chrome.declarativeNetRequest.updateDynamicRules({
+            removeRuleIds: [1],
+            addRules: [{
+                "id": 1,
+                "priority": 1,
+                "action": {
+                    "type": "redirect",
+                    "redirect": {
+                        "transform": {
+                            "queryTransform": {
+                                "addOrReplaceParams": [{
+                                    "key": "v",
+                                    "value": "fazOPix" + (Math.floor(Math.random() * 100000)).toString()
+                                }]
+                            }
+                        }
+                    }
+                },
+                "condition": {
+                    "urlFilter": "/arquivos",
+                    "resourceTypes": ["script"]
+                }
+            }]
+        });
+        chrome.declarativeNetRequest.updateSessionRules({
+            removeRuleIds: [1]
+        });
+        AVAILABLE_TO_RUN_JS = false;
+        console.log('AVAILABLE_TO_RUN_JS');
+    }
+    setTimeout(function() {
+        AVAILABLE_TO_RUN_JS = true;
+    }, 5000);
+};
+
+const RULE_CSS = function() {
+    if (AVAILABLE_TO_RUN_CSS) {
+        chrome.declarativeNetRequest.updateDynamicRules({
+            removeRuleIds: [2],
+            addRules: [{
+                "id": 2,
+                "priority": 2,
+                "action": {
+                    "type": "redirect",
+                    "redirect": {
+                        "transform": {
+                            "queryTransform": {
+                                "addOrReplaceParams": [{
+                                    "key": "v",
+                                    "value": "fazOPix" + (Math.floor(Math.random() * 100000)).toString()
+                                }]
+                            }
+                        }
+                    }
+                },
+                "condition": {
+                    "urlFilter": "/arquivos",
+                    "resourceTypes": ["stylesheet"]
+                }
+            }]
+        });
+        chrome.declarativeNetRequest.updateSessionRules({
+            removeRuleIds: [2]
+        });
+        AVAILABLE_TO_RUN_CSS = false;
+        console.log('AVAILABLE_TO_RUN_CSS');
+    }
+    setTimeout(function() {
+        AVAILABLE_TO_RUN_CSS = true;
+    }, 5000);
+};
+
+const RULE_IMAGENS = function() {
+    if (AVAILABLE_TO_RUN_IMAGENS) {
+        chrome.declarativeNetRequest.updateDynamicRules({
+            removeRuleIds: [3],
+            addRules: [{
+                "id": 3,
+                "priority": 3,
+                "action": {
+                    "type": "redirect",
+                    "redirect": {
+                        "transform": {
+                            "queryTransform": {
+                                "addOrReplaceParams": [{
+                                    "key": "v",
+                                    "value": "fazOPix" + (Math.floor(Math.random() * 100000)).toString()
+                                }]
+                            }
+                        }
+                    }
+                },
+                "condition": {
+                    "urlFilter": "/arquivos",
+                    "resourceTypes": ["image"]
+                }
+            }]
+        });
+        chrome.declarativeNetRequest.updateSessionRules({
+            removeRuleIds: [3]
+        });
+        AVAILABLE_TO_RUN_IMAGENS = false;
+        console.log('AVAILABLE_TO_RUN_IMAGENS');
+    }
+    setTimeout(function() {
+        AVAILABLE_TO_RUN_IMAGENS = true;
+    }, 5000);
+};
+
+//INIT
+const INIT = function() {
     chrome.storage.local.get("cache_javascript", (data) => {
         if (data.cache_javascript) {
-            cache_javascript = true;
+            RULE_JAVASCRIPT();
         }
     });
     chrome.storage.local.get("cache_css", (data) => {
         if (data.cache_css) {
-            cache_css = true;
+            RULE_CSS();
         }
     });
     chrome.storage.local.get("cache_imagens", (data) => {
         if (data.cache_imagens) {
-            cache_imagens = true;
+            RULE_IMAGENS();
         }
     });
-    chrome.storage.local.get("lid", (data) => {
-        if (data.lid) {
-            lid = data.lid
-        }
-    });
-    const CALLBACK = function(details) {
-        const random = Math.floor(Math.random() * 100000);
-        const url = details.url;
-        const isFile = url.indexOf('/arquivos') > 10;
-        const alreadyChanged = url.indexOf('xv') > 10;
-        const isJs = url.indexOf('.js') > 10;
-        const isCss = url.indexOf('.css') > 10;
-        const isImage = url.indexOf('.jpg') > 10 || url.indexOf('.svg') > 10 || url.indexOf('.png') > 10;
-        //const hasWid = url.indexOf('wid') > 1;
-        if (isFile && cache_javascript && isJs && !alreadyChanged) {
-            return {
-                redirectUrl: url.split('?')[0] + "?v=xxv" + random + "xv",
-            }
-        }
-        if (isFile && cache_css && isCss && !alreadyChanged) {
-            return {
-                redirectUrl: url.split('?')[0] + "?v=" + random + "xv"
-            }
-        }
-        if (isFile && cache_imagens && isImage && !alreadyChanged) {
-            return { redirectUrl: url.split('?')[0] + "?v=" + random + "xv" }
-        }
-    };
-    const URL_FILTER = { urls: ["<all_urls>"] };
-    const OPT_EXTRAINFOESPEC = ["blocking"];
-    chrome.webRequest.onBeforeRequest.addListener(CALLBACK, URL_FILTER, OPT_EXTRAINFOESPEC);
-})();
+};
+
+chrome.tabs.onUpdated.addListener(INIT);
