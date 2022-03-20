@@ -2,6 +2,9 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -9,24 +12,43 @@
     <div class="extension">
         <h1 class="title">VTEX CACHE</h1>
     </div>
+    <p class="subtitle">CONFIGURAÇÕES</p>
     <form class="form">
         <fieldset>
-            <label for="cache_javascript">Limpar cache de arquivos javascript</label>
-            <input type="checkbox" name="cache_javascript" value="false" id="cache_javascript" />
+            <label for="cache_javascript" class="label-text">Limpar cache de arquivos javascript</label>
+            <label class="toggle-button" for="cache_javascript">
+                <input type="checkbox" name="cache_javascript" value="false" id="cache_javascript" />
+                <div class="button">
+                    <div class="circle"></div>
+                </div>
+            </label>
         </fieldset>
         <fieldset>
-            <label for="cache_css">Limpar cache de arquivos css</label>
-            <input type="checkbox" name="cache_css" value="false" id="cache_css" />
+            <label for="cache_css" class="label-text">Limpar cache de arquivos css</label>
+            <label class="toggle-button" for="cache_css">
+                <input type="checkbox" name="cache_css" value="false" id="cache_css" />
+                <div class="button">
+                    <div class="circle"></div>
+                </div>
+            </label>
         </fieldset>
         <fieldset>
-            <label for="cache_imagens">Limpar cache de imagens</label>
-            <input type="checkbox" name="cache_imagens" value="false" id="cache_imagens" />
+            <label for="cache_imagens" class="label-text"> Limpar cache de imagens</label>
+            <label class="toggle-button" for="cache_imagens">
+                <input type="checkbox" name="cache_imagens" value="false" id="cache_imagens" />
+                <div class="button">
+                    <div class="circle"></div>
+                </div>
+            </label>
         </fieldset>
         <fieldset style="display: none;">
             <label for="lid">CONFIGURAR LID GLOBAL</label>
             <input type="text" name="lid" id="lid" />
         </fieldset>
     </form>
+    <div class="footer">
+        <a href="" target="_blank"></a>
+    </div>
     <script src="popup.js"></script>
 </body>
 
