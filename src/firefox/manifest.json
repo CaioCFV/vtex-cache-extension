@@ -1,14 +1,11 @@
 {
-    "name": "VTEX 0 CACHE",
-    "version": "2.0",
+    "name": "VTEX CACHE",
+    "version": "2.0.2",
     "description": "Reduz o cache da vtex drasticamente - by Caio F. Vieira",
     "manifest_version": 3,
     "permissions": [
         "declarativeNetRequest",
         "declarativeNetRequestWithHostAccess",
-        "declarativeNetRequestFeedback",
-        "activeTab",
-        "tabs",
         "storage"
     ],
     "host_permissions": [
@@ -18,10 +15,10 @@
         "service_worker": "background.js"
     },
     "icons": {
-        "16": "/images/vtexcache.png",
-        "32": "/images/vtexcache.png",
-        "48": "/images/vtexcache.png",
-        "128": "/images/vtexcache.png"
+        "16": "/arquivos/vtexcache.png",
+        "32": "/arquivos/vtexcache.png",
+        "48": "/arquivos/vtexcache.png",
+        "128": "/arquivos/vtexcache.png"
     },
     "action": {
         "default_popup": "popup.html"
