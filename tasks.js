@@ -20,10 +20,10 @@ function css() {
 function js() {
     return src('**/*.js', { cwd: './src' })
         .pipe(include())
-        .pipe(babel({
-            presets: ['@babel/preset-env']
-        }))
-        .pipe(uglify())
+        // .pipe(babel({
+        //     presets: ['@babel/preset-env']
+        // }))
+        //.pipe(uglify())
         .pipe(dest('build/'))
 }
 

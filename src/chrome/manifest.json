@@ -6,13 +6,14 @@
     "permissions": [
         "declarativeNetRequest",
         "declarativeNetRequestWithHostAccess",
-        "storage"
+        "storage",
+        "contextMenus"
     ],
     "host_permissions": [
         "<all_urls>"
     ],
     "background": {
-        "service_worker": "/js/background.js"
+        "service_worker": "./js/background.js"
     },
     "icons": {
         "16": "/img/vtexcache.png",

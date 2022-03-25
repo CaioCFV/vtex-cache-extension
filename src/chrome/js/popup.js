@@ -3,7 +3,10 @@
     const cache_css = document.querySelector("#cache_css");
     const cache_imagens = document.querySelector("#cache_imagens");
     const lid = document.querySelector("#lid");
-
+    let active = false;
+    chrome.storage.local.get("vtexcache_active", (status) => {
+        active = status.vtexcache_active;
+    });
     chrome.storage.local.get("cache_javascript", (data) => {
         if (data.cache_javascript) {
             cache_javascript.setAttribute('checked', true);
@@ -37,4 +40,9 @@
     lid.addEventListener("keyup", async() => {
         chrome.storage.local.set({ 'lid': lid.value });
     });
+    if (!active) {
+        document.querySelector('body').classList.add('disabled');
+    } else {
+        document.querySelector('body').classList.remove('disabled');
+    }
 })();
