@@ -12,12 +12,24 @@
     <div class="extension">
         <h1 class="title">VTEX CACHE</h1>
     </div>
+    <div class="disable-container">
+        <p>
+            ATIVAR | DESATIVAR ?
+        </p>
+        <label class="toggle-button" for="is_active">
+            <input type="checkbox" name="is_active" id="is_active" />
+            <div class="button">
+                <div class="circle"></div>
+            </div>
+        </label>
+        <small>Execute o comando <strong>(CRTL + SHIFT + R)</strong> ou <strong>(COMMAND + SHIFT + R)</strong><br /> para atualizar</small>
+    </div>
     <p class="subtitle">CONFIGURAÇÕES</p>
     <form class="form">
         <fieldset>
             <label for="cache_javascript" class="label-text">Limpar cache de arquivos javascript</label>
             <label class="toggle-button" for="cache_javascript">
-                <input type="checkbox" name="cache_javascript" value="false" id="cache_javascript" />
+                <input type="checkbox" name="cache_javascript"  id="cache_javascript" />
                 <div class="button">
                     <div class="circle"></div>
                 </div>
@@ -26,7 +38,7 @@
         <fieldset>
             <label for="cache_css" class="label-text">Limpar cache de arquivos css</label>
             <label class="toggle-button" for="cache_css">
-                <input type="checkbox" name="cache_css" value="false" id="cache_css" />
+                <input type="checkbox" name="cache_css"  id="cache_css" />
                 <div class="button">
                     <div class="circle"></div>
                 </div>
@@ -35,7 +47,7 @@
         <fieldset>
             <label for="cache_imagens" class="label-text"> Limpar cache de imagens</label>
             <label class="toggle-button" for="cache_imagens">
-                <input type="checkbox" name="cache_imagens" value="false" id="cache_imagens" />
+                <input type="checkbox" name="cache_imagens" id="cache_imagens" />
                 <div class="button">
                     <div class="circle"></div>
                 </div>

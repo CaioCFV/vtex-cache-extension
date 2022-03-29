@@ -1,4 +1,3 @@
-let vtex_cache_active = false;
 //RULES
 const RULE_JAVASCRIPT = function() {
     chrome.declarativeNetRequest.updateDynamicRules({
@@ -44,7 +43,7 @@ const RULE_CSS = function() {
                         "queryTransform": {
                             "addOrReplaceParams": [{
                                 "key": "v",
-                                "value": "fazOPix" + (Math.floor(Math.random() * 100000)).toString()
+                                "value": "vtexnocache" + (Math.floor(Math.random() * 100000)).toString()
                             }]
                         }
                     }
@@ -93,66 +92,36 @@ const RULE_IMAGENS = function() {
     console.log('RUN_IMAGENS');
 };
 
-//CONTEXT MENU
-const UPDATE_STYLE = function() {
-    chrome.storage.local.get("vtexcache_active", (status) => {
-        if (status.vtexcache_active) {
-            const canvas = new OffscreenCanvas(16, 16);
-            const context = canvas.getContext('2d');
-            context.clearRect(0, 0, 16, 16);
-            context.fillStyle = '#00FF00';
-            context.fillRect(0, 0, 16, 16);
-            const imageData = context.getImageData(0, 0, 16, 16);
-            chrome.action.setIcon({ imageData: imageData }, () => { /* ... */ });
-        } else {
-            const canvas = new OffscreenCanvas(16, 16);
-            const context = canvas.getContext('2d');
-            context.clearRect(0, 0, 16, 16);
-            context.fillStyle = '#e31c58';
-            context.fillRect(0, 0, 16, 16);
-            const imageData = context.getImageData(0, 0, 16, 16);
-            chrome.action.setIcon({ imageData: imageData }, () => { /* ... */ });
-        }
-    });
-};
-
-const TOGGLE_EXTENSION = function() {
-    chrome.storage.local.get("vtexcache_active", (status) => {
-        vtex_cache_active = !status.vtexcache_active;
-        chrome.storage.local.set({ 'vtexcache_active': !status.vtexcache_active });
-        UPDATE_STYLE();
-    });
-};
-
-chrome.contextMenus.create({
-    id: 'toggle',
-    title: "Ativar / Desativar",
-    contexts: ['all'],
-    type: "normal"
-});
-
-chrome.contextMenus.onClicked.addListener((data) => {
-    if (data.menuItemId === 'toggle') {
-        TOGGLE_EXTENSION();
-    }
-});
-
 //INIT
 const INIT = function(tabid, changeInfo) {
     if (changeInfo.status == 'complete') {
-        chrome.storage.local.get("cache_javascript", (data) => {
-            if (data.cache_javascript && vtex_cache_active) {
-                RULE_JAVASCRIPT();
-            }
-        });
-        chrome.storage.local.get("cache_css", (data) => {
-            if (data.cache_css && vtex_cache_active) {
-                RULE_CSS();
-            }
-        });
-        chrome.storage.local.get("cache_imagens", (data) => {
-            if (data.cache_imagens && vtex_cache_active) {
-                RULE_IMAGENS();
+        chrome.storage.local.get("is_active", (data) => {
+            if (data.is_active) {
+                chrome.storage.local.get("cache_javascript", (data) => {
+                    if (data.cache_javascript) {
+                        RULE_JAVASCRIPT();
+                    }
+                });
+                chrome.storage.local.get("cache_css", (data) => {
+                    if (data.cache_css) {
+                        RULE_CSS();
+                    }
+                });
+                chrome.storage.local.get("cache_imagens", (data) => {
+                    if (data.cache_imagens) {
+                        RULE_IMAGENS();
+                    }
+                });
+            } else {
+                chrome.declarativeNetRequest.updateDynamicRules({
+                    removeRuleIds: [1]
+                });
+                chrome.declarativeNetRequest.updateDynamicRules({
+                    removeRuleIds: [2]
+                });
+                chrome.declarativeNetRequest.updateDynamicRules({
+                    removeRuleIds: [3]
+                });
             }
         });
     }

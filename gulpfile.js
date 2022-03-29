@@ -38,18 +38,21 @@ function watchFiles() {
     });
 
     watch('./src/**/*.js', function(done) {
+        copyAll();
         js();
         browserSync.reload()
         done();
     });
 
     watch(['./src/**/*.scss', '../commom/**/*.scss'], function(done) {
+        copyAll();
         scss();
         browserSync.reload()
         done();
     });
 
     watch(['./src/js/commomScripts/*.js'], function(done) {
+        copyAll();
         commomScripts();
         browserSync.reload()
         done();
